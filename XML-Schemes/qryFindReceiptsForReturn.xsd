@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="ValueFilter">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Фильтр с определенным значением</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="Value">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Значение фильтра</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="RangeFilter">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Фильтр с определенным значением</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="Value">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Значение фильтра (может быть указано в формате "Наименьшее значение"chr(#10)"Наибольшее значение")</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ValueL">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Наименьшее значение фильтра (игнорируется, если задано значнеие атрибута value)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ValueH">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Наибольшее значение фильтра (игнорируется, если задано значнеие атрибута value)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Поиск чеков для возврата</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Station" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Станция, от имени которой осуществляется поиск</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Cashier" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Кассир, от имени которого
+                                        осуществляется поиск</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="CheckNum" type="RangeFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по номеру чека</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Comment" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по комментарию</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Employee" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по основному официанту</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Table" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по номеру стола</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="CardCode" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по номеру карты</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Dish" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по блюду</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Currency" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по использованной валюте</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="PaySum" type="RangeFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по сумме чека</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="CloseTime" type="RangeFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по времени закрытия</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="COT" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по типу заказа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="UOT" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по категории заказа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="StartTime" type="RangeFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по времени создания</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="CustomProp" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по использованным пользовательским свойствам</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="INN" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по ИНН сотрудника</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="FiscalDevice" type="ValueFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по идентификатору фискального устройства</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="FiscalReportNumber" type="RangeFilter" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Фильтр по фискальному номеру</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="FindReceiptsForReturn" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+
+  <xs:complexType name="ReceiptItem">
+    <xs:attribute name="CheckUNI" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">UNI чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CheckNum" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Номер чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasicSum" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Сумма чека в базовой валюте</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="iAuthor" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор официанта, создавшего чек</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="iCloseStation" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор станции, на которой чек был закрыт</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="iPrintStation" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор станции, на которой чек был распечатан</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="iPrinter" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор принтера, на который был распечатан чек</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CloseDateTime" type="xs:dateTime">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Дата-время печати чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="iDrawer" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор ящика</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OrderId" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Midserver" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Идентификатор кассового сервера</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="TableName" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Название стола</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OrderName" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Название заказа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="INN" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ИНН сотрудника, создавшего чек</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="GlobalFiscalID" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Фискальный номер документа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="GuidString" type="xs:guidString">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">GUid чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">xml-ответ FindReceiptsForReturn</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:sequence>
+            <xs:element name="Items">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Receipt" type="ReceiptItem" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                      <xs:documentation xml:lang="ru">Информация о чеке</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

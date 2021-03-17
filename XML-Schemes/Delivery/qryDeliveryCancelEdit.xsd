@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation=".\common.xsd"/>
+  <xs:element name="RK7CMD">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Касса, Кассовый сервер] Доставка: отмена редактирования</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Order" type="orderElement" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="LockStation" type="refItem" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Станция, от имени которой будет заблокирован заказ</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="CMD" fixed="DeliveryCancelEdit"/>
+      <xs:attribute name="lockguid" type="xs:normalizedString" default="">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Токен блокировки (идентификатор сессии блокировки). С версии 7.6.4.006.
+            При блокировке заказа использовать указанный токен. Если заказ был заблокирован, 
+            то проверить токен блокировки, выдавать ошибку если заказ был заблокирован при помощи другого токена
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

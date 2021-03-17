@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="roDishItem">
+        <xs:attribute name="line_guid" type="xs:normalizedString" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">LINE_GUID блюда</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="quantity" type="xs:int" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Количество блюда (в тысячных долях)</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>    
+  </xs:complexType>
+  
+  <xs:complexType name="roPrintCheckItem">
+    <xs:attribute name="line_guid" type="xs:normalizedString" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">GUID чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Возврат товара</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LicenseInfo" type="LicenseInfoItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Информация о лицензии, необходимой для выполнения запроса</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Station" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Cashier" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Reason" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Причина (удаления) для возврата блюд</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ReceiptMaket" type="refItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Представление документа для возврата товара</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="PrintCheck" type="roPrintCheckItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Исходный чек, блюдо из которого нужно вернуть, идентифицируется line_guid</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Dishes" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Список блюд для возврата</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="roDishItem" name="Dish" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>                
+              </xs:element>
+            </xs:sequence>            
+            <xs:attribute name="CMD" fixed="MakeReturnGoods"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

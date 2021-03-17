@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] xml-ответ: DeliveryPostOrder</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:sequence>
+            <xs:element name="Order" type="resOrderItem">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="DeliveryBlock" type="deliveryBlock"/>
+          </xs:sequence>
+          <xs:attribute name="VisitID" type="xs:positiveInteger" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Идентификатор визита</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="OrderID" type="xs:positiveInteger" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Идентификатор заказа в рамках визита</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="guid" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">GUID заказа</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="version" type="xs:nonNegativeInteger" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Версия заказа</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="crc32" type="xs:int" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Контрольная сумма по содержимому заказа</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

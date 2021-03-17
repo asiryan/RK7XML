@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="Payments">
+    <xs:choice>
+      <xs:element name="Pay" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attributeGroup ref="refItemAttributes"/>
+          <xs:attribute name="amount" type="xs:int">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Сумма оплаты (в
+                копейках)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Prepay" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PrepayReason" type="refItem" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Причина внесения денег для предоплаты</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attributeGroup ref="refItemAttributes"/>
+          <xs:attribute name="amount" type="xs:int">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Сумма оплаты (в
+                копейках)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Рассчет суммы заказа (версия
+                2)</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Order" type="orderElement" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Station" type="refItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Cashier" type="refItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="PrepayReason" type="refItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Причина внесения денег для предоплаты. Если указана, то в ответе будут только те валюты, которыми можно дать предоплату.
+                  Суммы валют будут посчитаны с учетом ограничений по валюте зачета аванса из причины внесения</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Payments" type="Payments"/>
+            </xs:sequence>
+            <xs:attribute name="CMD" fixed="CalcOrder2"/>
+            <xs:attribute name="calcBySeats" type="xs:boolean">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">true - рассчет по местам, false -
+                                    общий чек</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="seat" type="xs:integer">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер посадочного
+                                    места, для которого нужно рассчитать суммы</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
